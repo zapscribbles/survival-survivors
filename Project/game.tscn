@@ -28,3 +28,5 @@ metadata/_edit_lock_ = true
 [node name="Weapon" parent="Player" instance=ExtResource("4_0qq85")]
 
 [node name="Enemy" parent="." instance=ExtResource("3_x5f5y")]
+collision_layer = 1
+collision_mask = 3
