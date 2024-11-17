@@ -6,10 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bfj2o"]
 size = Vector2(20, 34)
 
-[node name="Bullet" type="CharacterBody2D"]
+[node name="Bullet" type="Area2D"]
 collision_layer = 4
 collision_mask = 2
-motion_mode = 1
 script = ExtResource("1_7d50j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -19,3 +18,8 @@ shape = SubResource("RectangleShape2D_bfj2o")
 [node name="Sprite" type="Sprite2D" parent="."]
 rotation = 1.5708
 texture = ExtResource("2_64vsv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="." to="." method="_on_body_shape_exited"]

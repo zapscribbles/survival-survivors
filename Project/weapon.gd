@@ -10,9 +10,9 @@ func _on_cooldown_timeout():
 	print("Shoot!")
 	var bullet = bullet_scene.instantiate()
 	var enemy = get_node("/root/game/Enemy") as CharacterBody2D
-	print(global_position)
+
 	bullet.position = global_position
-	bullet.set_target(enemy.position)
+	bullet.set_target(enemy.global_position)
 	get_node("/root/game/").add_child(bullet)
 	
 	
