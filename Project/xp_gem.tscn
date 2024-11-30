@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7winxbeswov1"]
+
+[ext_resource type="Texture2D" uid="uid://c3e4i4cmi82uh" path="res://assets/sprites/station_A.png" id="1_5uetk"]
+[ext_resource type="Script" path="res://xp_gem.gd" id="1_wy8fb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5khkx"]
+radius = 13.6015
+
+[sub_resource type="Animation" id="Animation_u5jjc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.0117647, 0.658824, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i3xot"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7, 1.1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -1.5708, -6.28319, -3.14159, 1.5708, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7, 1.1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-50, 0), Vector2(0, -50), Vector2(50, -75), Vector2(-100, -50), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0.0117647, 0.658824, 1), Color(0, 0.780392, 1, 1), Color(0, 0.392157, 1, 1), Color(0, 0.780392, 1, 1), Color(0, 0.0117647, 0.658824, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_shhrq"]
+_data = {
+"RESET": SubResource("Animation_u5jjc"),
+"idle": SubResource("Animation_i3xot")
+}
+
+[node name="XPGem" type="CharacterBody2D"]
+position = Vector2(795, 343)
+script = ExtResource("1_wy8fb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5khkx")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0, 0.0117647, 0.658824, 1)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("1_5uetk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_shhrq")
+}

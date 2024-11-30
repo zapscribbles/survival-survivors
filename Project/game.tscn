@@ -19,6 +19,8 @@ shader = ExtResource("6_45yh2")
 [node name="game" type="Node2D"]
 script = ExtResource("1_4n46m")
 
+[node name="Loot" type="Node2D" parent="."]
+
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("2_0h0l0")]
