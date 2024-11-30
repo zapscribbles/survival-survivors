@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://ctjysvi2h38yr"]
+[gd_scene load_steps=8 format=4 uid="uid://ctjysvi2h38yr"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_4n46m"]
 [ext_resource type="Texture2D" uid="uid://b6fmojypve28t" path="res://assets/bg/SpaceBackground.png" id="1_qet5r"]
 [ext_resource type="PackedScene" uid="uid://bfek3nihtrk3y" path="res://player.tscn" id="2_0h0l0"]
+[ext_resource type="PackedScene" uid="uid://dc56eknpl282r" path="res://enemy.tscn" id="3_x5f5y"]
 [ext_resource type="PackedScene" uid="uid://w8snyu6d6l25" path="res://weapon.tscn" id="4_0qq85"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tewwc"]
@@ -35,5 +36,11 @@ polygon = PackedVector2Array(-65, -65, 1217, -65, 1217, 713, -65, 713)
 autostart = true
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("3_x5f5y")]
+position = Vector2(59, 329)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("3_x5f5y")]
+position = Vector2(1120, 320)
 
 [connection signal="timeout" from="SpawnRect/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
