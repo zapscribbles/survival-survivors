@@ -1,10 +1,137 @@
-[gd_scene load_steps=4 format=3 uid="uid://cca6bqo52nuhf"]
+[gd_scene load_steps=10 format=3 uid="uid://cca6bqo52nuhf"]
 
 [ext_resource type="Script" path="res://bullet.gd" id="1_7d50j"]
 [ext_resource type="Texture2D" uid="uid://8qyitre6uff0" path="res://assets/sprites/spaceMissiles_001.png" id="2_64vsv"]
+[ext_resource type="Texture2D" uid="uid://cvjt8oicsiokj" path="res://assets/effects/star1.png" id="3_ky0lw"]
+[ext_resource type="Texture2D" uid="uid://bpdxs2f40ghlb" path="res://assets/effects/star2.png" id="4_vme6k"]
+[ext_resource type="Texture2D" uid="uid://bbhfdcubwymrd" path="res://assets/effects/star3.png" id="5_5hivn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bfj2o"]
 size = Vector2(20, 34)
+
+[sub_resource type="Animation" id="Animation_n4b4h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitEffect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ky0lw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitEffect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitEffect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_wlsb7"]
+resource_name = "hit"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitEffect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_ky0lw"), ExtResource("4_vme6k"), ExtResource("5_5hivn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitEffect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitEffect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 0.576471, 1), Color(1, 1, 0.352941, 1), Color(1, 0.533333, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6f7s8"]
+_data = {
+"RESET": SubResource("Animation_n4b4h"),
+"hit": SubResource("Animation_wlsb7")
+}
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 4
@@ -18,6 +145,18 @@ shape = SubResource("RectangleShape2D_bfj2o")
 [node name="Sprite" type="Sprite2D" parent="."]
 rotation = 1.5708
 texture = ExtResource("2_64vsv")
+
+[node name="HitEffect" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 0.576471, 1)
+position = Vector2(19, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ky0lw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6f7s8")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]

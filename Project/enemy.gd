@@ -16,5 +16,12 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func hit():
-	print(name + " was hit")
+func hit(weapon):
+	print(name + " was hit with " + str(weapon.dmg) + " damage")
+	hp -= weapon.dmg
+	if hp <= 0:
+		destroyed(weapon)
+
+func destroyed(by_weapon):
+	print(name + " was destroyed by " + by_weapon.name)
+	$AnimationPlayer.play("death") 

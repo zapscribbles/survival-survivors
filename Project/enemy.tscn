@@ -1,11 +1,119 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc56eknpl282r"]
+[gd_scene load_steps=17 format=3 uid="uid://dc56eknpl282r"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_s06ws"]
 [ext_resource type="Texture2D" uid="uid://dye7bu0ob1jxq" path="res://assets/sprites/enemy_A.png" id="2_eto1g"]
 [ext_resource type="Script" path="res://enemy-area_2d.gd" id="2_xvckx"]
+[ext_resource type="Texture2D" uid="uid://ck2i4igyoxn0" path="res://assets/effects/spaceEffects_008.png" id="4_aqldq"]
+[ext_resource type="Texture2D" uid="uid://dvuvuy3cjeo2h" path="res://assets/effects/spaceEffects_009.png" id="5_7w5es"]
+[ext_resource type="Texture2D" uid="uid://dvnagolkl3jsr" path="res://assets/effects/spaceEffects_010.png" id="6_rjjkl"]
+[ext_resource type="Texture2D" uid="uid://cc3mwg67b1t04" path="res://assets/effects/spaceEffects_011.png" id="7_g8mth"]
+[ext_resource type="Texture2D" uid="uid://btmg436w2ulx5" path="res://assets/effects/spaceEffects_012.png" id="8_lx8hv"]
+[ext_resource type="Texture2D" uid="uid://dmva04fl4d1sx" path="res://assets/effects/spaceEffects_013.png" id="9_re8sn"]
+[ext_resource type="Texture2D" uid="uid://ck804l2pqj7fy" path="res://assets/effects/spaceEffects_014.png" id="10_oclkq"]
+[ext_resource type="Texture2D" uid="uid://0is3jvrytocv" path="res://assets/effects/spaceEffects_015.png" id="11_2m0qb"]
+[ext_resource type="Texture2D" uid="uid://b2k71ntwxs7ps" path="res://assets/effects/spaceEffects_016.png" id="12_2xbqy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s8tne"]
 size = Vector2(97, 76)
+
+[sub_resource type="Animation" id="Animation_66fqw"]
+resource_name = "death"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathEffect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathEffect:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_aqldq"), ExtResource("5_7w5es"), ExtResource("6_rjjkl"), ExtResource("7_g8mth"), ExtResource("8_lx8hv"), ExtResource("9_re8sn"), ExtResource("10_oclkq"), ExtResource("11_2m0qb"), ExtResource("12_2xbqy")]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.45),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathEffect:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_nwiqq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathEffect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_aqldq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathEffect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathEffect:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_enysu"]
+_data = {
+"RESET": SubResource("Animation_nwiqq"),
+"death": SubResource("Animation_66fqw")
+}
 
 [node name="Enemy" type="CharacterBody2D"]
 position = Vector2(11, 1)
@@ -34,3 +142,12 @@ metadata/_edit_lock_ = true
 rotation = 1.5708
 texture = ExtResource("2_eto1g")
 metadata/_edit_lock_ = true
+
+[node name="DeathEffect" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_aqldq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_enysu")
+}

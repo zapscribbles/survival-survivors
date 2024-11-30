@@ -15,5 +15,5 @@ func enemy_name():
 func type():
 	return "enemy"
 
-func hit():
-	get_parent().hit()
+func hit(weapon):
+	get_parent().hit(weapon)

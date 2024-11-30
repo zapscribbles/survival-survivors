@@ -1,6 +1,9 @@
 extends Node2D
 
 var bullet_scene = preload("res://bullet.tscn")
+var dmg = 5
+var num_shots = 2
+var time_between_shots = 0.25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,14 +11,13 @@ func _ready():
 
 func _on_cooldown_timeout():
 	#print("Shoot!")
-	var bullet = bullet_scene.instantiate()
-		
-	var target = find_closest_enemy()
+	var target
 	
-	if target:
-		bullet.position = global_position
-		bullet.set_target(target.global_position)
-		get_node("/root/game").add_child(bullet)
+	for i in num_shots:
+		target = find_closest_enemy()
+		shoot_bullet(target)
+		if i < num_shots: # AKA there are more shots to come
+			await get_tree().create_timer(time_between_shots).timeout
 
 func find_closest_enemy():
 	# Get all enemies
@@ -38,3 +40,12 @@ func find_closest_enemy():
 		return closest_enemy
 	else:
 		return null
+
+func shoot_bullet(target):
+	var bullet = bullet_scene.instantiate()
+	
+	if target:
+		bullet.position = global_position
+		bullet.set_target(target.global_position)
+		bullet.weapon = self
+		get_node("/root/game").add_child(bullet)
