@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://weapon.gd" id="1_es2fp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x8naf"]
-radius = 168.012
+radius = 16.0312
 
 [node name="Weapon" type="StaticBody2D"]
 script = ExtResource("1_es2fp")
