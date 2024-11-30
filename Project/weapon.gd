@@ -15,7 +15,7 @@ func _on_cooldown_timeout():
 	if target:
 		bullet.position = global_position
 		bullet.set_target(target.global_position)
-		get_tree().root.add_child(bullet)
+		get_node("/root/game").add_child(bullet)
 
 func find_closest_enemy():
 	# Get all enemies

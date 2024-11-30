@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
-
 const SPEED = 80.0
+
+var hp = 10
 
 func _ready():
 	add_to_group("enemies")
@@ -14,3 +15,6 @@ func _physics_process(delta):
 	look_at(position.move_toward(player.position, 1))
 
 	move_and_slide()
+
+func hit():
+	print(name + " was hit")

@@ -38,9 +38,6 @@ autostart = true
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("3_x5f5y")]
-position = Vector2(59, 329)
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("3_x5f5y")]
-position = Vector2(1120, 320)
+position = Vector2(333, 490)
 
 [connection signal="timeout" from="SpawnRect/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

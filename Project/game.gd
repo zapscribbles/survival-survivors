@@ -1,6 +1,7 @@
 extends Node2D
 
 var enemy_scene = preload("res://enemy.tscn")
+var enemy_counter = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,6 +15,8 @@ func _process(delta):
 func _on_spawn_timer_timeout():
 	var enemy = enemy_scene.instantiate()
 	enemy.position = $SpawnRect.to_global(get_spawn_point())
+	enemy.name = "Enemy" + str(enemy_counter)
+	enemy_counter += 1
 	
 	print("enemy spawned at: "+ str(enemy.position))
 	$Enemies.add_child(enemy)

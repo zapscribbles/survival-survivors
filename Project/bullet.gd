@@ -18,5 +18,5 @@ func _physics_process(delta):
 func _on_area_entered(area:Area2D):
 	if area.type():
 		if area.type() == "enemy":
-			pass
 			#print("bullet hit: " + area.enemy_name())
+			area.hit()
