@@ -15,6 +15,12 @@ run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/window_width_override=2304
+window/size/window_height_override=1296
+window/stretch/mode="canvas_items"
+
 [rendering]
 
 renderer/rendering_method="mobile"

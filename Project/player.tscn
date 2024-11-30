@@ -8,6 +8,7 @@ radius = 63.0714
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(576, 321)
+scale = Vector2(0.479995, 0.479995)
 motion_mode = 1
 script = ExtResource("1_00ds3")
 

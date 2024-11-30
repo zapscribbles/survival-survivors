@@ -1,31 +1,32 @@
-[gd_scene load_steps=8 format=4 uid="uid://ctjysvi2h38yr"]
+[gd_scene load_steps=14 format=3 uid="uid://ctjysvi2h38yr"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_4n46m"]
-[ext_resource type="Texture2D" uid="uid://b6fmojypve28t" path="res://assets/bg/SpaceBackground.png" id="1_qet5r"]
 [ext_resource type="PackedScene" uid="uid://bfek3nihtrk3y" path="res://player.tscn" id="2_0h0l0"]
 [ext_resource type="PackedScene" uid="uid://dc56eknpl282r" path="res://enemy.tscn" id="3_x5f5y"]
 [ext_resource type="PackedScene" uid="uid://w8snyu6d6l25" path="res://weapon.tscn" id="4_0qq85"]
+[ext_resource type="Shader" path="res://bg.gdshader" id="6_45yh2"]
+[ext_resource type="Texture2D" uid="uid://q0mww0k5qh81" path="res://assets/bg/Space Background (10).png" id="7_dev1c"]
+[ext_resource type="Texture2D" uid="uid://cklr3ug402sq" path="res://assets/bg/plain/black.png" id="7_n1ck7"]
+[ext_resource type="Texture2D" uid="uid://saao54c106el" path="res://assets/bg/Space Background (14).png" id="8_wqo0d"]
+[ext_resource type="Texture2D" uid="uid://1p5dyo70c46i" path="res://assets/bg/Space Background (11).png" id="10_18ilc"]
+[ext_resource type="Texture2D" uid="uid://brhda4dg3nxm7" path="res://assets/bg/Space Background (7).png" id="12_jkq7e"]
+[ext_resource type="Texture2D" uid="uid://cdojeo5qdokjc" path="res://assets/bg/Space Background (13).png" id="14_dbfyg"]
+[ext_resource type="Texture2D" uid="uid://djufrtl5vhnu2" path="res://assets/bg/Space Background (15).png" id="16_w305a"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tewwc"]
-texture = ExtResource("1_qet5r")
-texture_region_size = Vector2i(128, 128)
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_4jpvv"]
-tile_size = Vector2i(128, 128)
-sources/0 = SubResource("TileSetAtlasSource_tewwc")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b0cvr"]
+shader = ExtResource("6_45yh2")
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4n46m")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAAAAAAAAACAAQAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAACAAIAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAADAAIAAAAAAAAAAAD/////AAAAAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAADAP//AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAAHAP//AAAAAAAAAAAIAP//AAAAAAAAAAAJAP//AAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAABAAUAAAAAAAAAAAAAAAUAAAAAAAAAAAD//wUAAAAAAAAAAAD//wQAAAAAAAAAAAD//wMAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAD//wAAAAAAAAAAAAA=")
-tile_set = SubResource("TileSet_4jpvv")
-metadata/_edit_lock_ = true
+[node name="Bullets" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("2_0h0l0")]
 
 [node name="Weapon" parent="Player" instance=ExtResource("4_0qq85")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+editor_draw_screen = false
 
 [node name="SpawnRect" type="Polygon2D" parent="."]
 visible = false
@@ -39,5 +40,95 @@ autostart = true
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("3_x5f5y")]
 position = Vector2(333, 490)
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="6th" type="ParallaxLayer" parent="Background"]
+texture_filter = 1
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="TextureRect" type="TextureRect" parent="Background/6th"]
+material = SubResource("ShaderMaterial_b0cvr")
+offset_right = 1152.0
+offset_bottom = 645.0
+texture = ExtResource("7_dev1c")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="5th" type="ParallaxLayer" parent="Background"]
+modulate = Color(0.44, 0.44, 0.44, 1)
+texture_filter = 1
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="TextureRect" type="TextureRect" parent="Background/5th"]
+material = SubResource("ShaderMaterial_b0cvr")
+offset_right = 1152.0
+offset_bottom = 645.0
+texture = ExtResource("8_wqo0d")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="4th" type="ParallaxLayer" parent="Background"]
+texture_filter = 1
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="TextureRect" type="TextureRect" parent="Background/4th"]
+material = SubResource("ShaderMaterial_b0cvr")
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("10_18ilc")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="3rd" type="ParallaxLayer" parent="Background"]
+texture_filter = 1
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="TextureRect" type="TextureRect" parent="Background/3rd"]
+modulate = Color(0.53, 0.53, 0.53, 1)
+material = SubResource("ShaderMaterial_b0cvr")
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("12_jkq7e")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="2nd" type="ParallaxLayer" parent="Background"]
+texture_filter = 1
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="TextureRect" type="TextureRect" parent="Background/2nd"]
+material = SubResource("ShaderMaterial_b0cvr")
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("14_dbfyg")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="1st" type="ParallaxLayer" parent="Background"]
+texture_filter = 1
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(1152, 648)
+
+[node name="TextureRect" type="TextureRect" parent="Background/1st"]
+modulate = Color(0.6, 0.6, 0.6, 1)
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("16_w305a")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+modulate = Color(1, 1, 1, 0.254902)
+offset_right = 2339.0
+offset_bottom = 1322.0
+texture = ExtResource("7_n1ck7")
+stretch_mode = 1
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="SpawnRect/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

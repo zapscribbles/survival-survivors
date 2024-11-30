@@ -48,4 +48,4 @@ func shoot_bullet(target):
 		bullet.position = global_position
 		bullet.set_target(target.global_position)
 		bullet.weapon = self
-		get_node("/root/game").add_child(bullet)
+		get_node("/root/game/Bullets").add_child(bullet)
