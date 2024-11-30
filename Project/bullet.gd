@@ -15,22 +15,7 @@ func set_target(setting):
 func _physics_process(delta):
 	position += VELOCITY * SPEED * delta
 
-
-func _on_body_entered(body):
-	print("Hit!")
-	print(body)
-
-
-func _on_body_exited(body):
-	print("exit!")
-	print(body)
-
-
-func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	print("body hit!")
-	print(body)
-
-
-func _on_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
-	print("body exit!")
-	print(body)
+func _on_area_entered(area:Area2D):
+	if area.type():
+		if area.type() == "enemy":
+			print("bullet hit: " + area.enemy_name())

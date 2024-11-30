@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc56eknpl282r"]
+[gd_scene load_steps=5 format=3 uid="uid://dc56eknpl282r"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_s06ws"]
 [ext_resource type="Texture2D" uid="uid://dye7bu0ob1jxq" path="res://assets/sprites/enemy_A.png" id="2_eto1g"]
+[ext_resource type="Script" path="res://enemy-area_2d.gd" id="2_xvckx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s8tne"]
 size = Vector2(97, 76)
@@ -14,6 +15,17 @@ motion_mode = 1
 script = ExtResource("1_s06ws")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1.5, 1)
+shape = SubResource("RectangleShape2D_s8tne")
+disabled = true
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
+script = ExtResource("2_xvckx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1.5, 1)
 shape = SubResource("RectangleShape2D_s8tne")
 metadata/_edit_lock_ = true
