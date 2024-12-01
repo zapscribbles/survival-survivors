@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://game.gd" id="1_4n46m"]
 [ext_resource type="PackedScene" uid="uid://bfek3nihtrk3y" path="res://player.tscn" id="2_0h0l0"]
-[ext_resource type="PackedScene" uid="uid://dc56eknpl282r" path="res://enemy.tscn" id="3_x5f5y"]
 [ext_resource type="PackedScene" uid="uid://w8snyu6d6l25" path="res://weapon.tscn" id="4_0qq85"]
 [ext_resource type="Shader" path="res://bg.gdshader" id="6_45yh2"]
 [ext_resource type="Texture2D" uid="uid://q0mww0k5qh81" path="res://assets/bg/Space Background (10).png" id="7_dev1c"]
 [ext_resource type="Texture2D" uid="uid://cklr3ug402sq" path="res://assets/bg/plain/black.png" id="7_n1ck7"]
 [ext_resource type="Texture2D" uid="uid://saao54c106el" path="res://assets/bg/Space Background (14).png" id="8_wqo0d"]
 [ext_resource type="Texture2D" uid="uid://1p5dyo70c46i" path="res://assets/bg/Space Background (11).png" id="10_18ilc"]
+[ext_resource type="PackedScene" uid="uid://c7winxbeswov1" path="res://xp_gem.tscn" id="12_5donn"]
 [ext_resource type="Texture2D" uid="uid://brhda4dg3nxm7" path="res://assets/bg/Space Background (7).png" id="12_jkq7e"]
 [ext_resource type="Texture2D" uid="uid://cdojeo5qdokjc" path="res://assets/bg/Space Background (13).png" id="14_dbfyg"]
 [ext_resource type="Texture2D" uid="uid://djufrtl5vhnu2" path="res://assets/bg/Space Background (15).png" id="16_w305a"]
@@ -24,6 +24,7 @@ script = ExtResource("1_4n46m")
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("2_0h0l0")]
+unique_name_in_owner = true
 
 [node name="Weapon" parent="Player" instance=ExtResource("4_0qq85")]
 
@@ -36,12 +37,8 @@ color = Color(1, 0, 0, 0.172549)
 polygon = PackedVector2Array(-65, -65, 1217, -65, 1217, 713, -65, 713)
 
 [node name="SpawnTimer" type="Timer" parent="SpawnRect"]
-autostart = true
 
 [node name="Enemies" type="Node2D" parent="."]
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("3_x5f5y")]
-position = Vector2(333, 490)
 
 [node name="Background" type="ParallaxBackground" parent="."]
 
@@ -59,6 +56,7 @@ stretch_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="5th" type="ParallaxLayer" parent="Background"]
+visible = false
 modulate = Color(0.44, 0.44, 0.44, 1)
 texture_filter = 1
 motion_scale = Vector2(0.2, 0.2)
@@ -86,6 +84,7 @@ stretch_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="3rd" type="ParallaxLayer" parent="Background"]
+visible = false
 texture_filter = 1
 motion_scale = Vector2(0.4, 0.4)
 motion_mirroring = Vector2(1152, 648)
@@ -132,5 +131,11 @@ offset_bottom = 1322.0
 texture = ExtResource("7_n1ck7")
 stretch_mode = 1
 metadata/_edit_lock_ = true
+
+[node name="XPGem" parent="." instance=ExtResource("12_5donn")]
+position = Vector2(1030, 490)
+
+[node name="XPGem2" parent="." instance=ExtResource("12_5donn")]
+position = Vector2(963, 42)
 
 [connection signal="timeout" from="SpawnRect/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -21,6 +21,10 @@ window/size/window_width_override=2304
 window/size/window_height_override=1296
 window/stretch/mode="canvas_items"
 
+[layer_names]
+
+2d_physics/layer_4="gems"
+
 [rendering]
 
 renderer/rendering_method="mobile"

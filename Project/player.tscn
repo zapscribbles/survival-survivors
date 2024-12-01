@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfek3nihtrk3y"]
+[gd_scene load_steps=7 format=3 uid="uid://bfek3nihtrk3y"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_00ds3"]
+[ext_resource type="Script" path="res://collection_area.gd" id="2_2fx4e"]
 [ext_resource type="Texture2D" uid="uid://i6ejba6qhtgv" path="res://assets/sprites/shipPink_manned.png" id="2_k7upb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8upuj"]
 radius = 63.0714
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_beoth"]
+radius = 337.529
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2fr3q"]
+radius = 48.09
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(576, 321)
@@ -13,9 +20,31 @@ motion_mode = 1
 script = ExtResource("1_00ds3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_8upuj")
 metadata/_edit_lock_ = true
+
+[node name="CollectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("2_2fx4e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectionArea"]
+shape = SubResource("CircleShape2D_beoth")
+debug_color = Color(0.690196, 0.6, 0.12549, 0.141176)
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_2fr3q")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_k7upb")
 metadata/_edit_lock_ = true
+
+[connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
+[connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]
+[connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

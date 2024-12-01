@@ -5,6 +5,7 @@ const SPEED = 80.0
 var hp = 10
 var dead = false
 var gem_scene = preload("res://xp_gem.tscn")
+@onready var player = get_tree().root.get_node("game/Player") as CharacterBody2D
 
 func _ready():
 	add_to_group("enemies")
@@ -12,12 +13,11 @@ func _ready():
 func _physics_process(delta):
 	
 	if !dead:
-		var player = get_tree().root.get_node("game/Player") as CharacterBody2D
-		
-		position = position.move_toward(player.position, delta*SPEED)
-		look_at(position.move_toward(player.position, 1))
+		if player:
+			position = position.move_toward(player.position, delta*SPEED)
+			look_at(position.move_toward(player.position, 1))
 
-		move_and_slide()
+			move_and_slide()
 
 func hit(weapon):
 	if !dead:
