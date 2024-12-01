@@ -21,14 +21,14 @@ func _physics_process(delta):
 
 func hit(weapon):
 	if !dead:
-		print(name + " was hit with " + str(weapon.dmg) + " damage")
+		#print(name + " was hit with " + str(weapon.dmg) + " damage")
 		hp -= weapon.dmg
 		if hp <= 0:
 			destroyed(weapon)
 
 func destroyed(by_weapon):
 	dead = true
-	print(name + " was destroyed by " + by_weapon.name)
+	#print(name + " was destroyed by " + by_weapon.name)
 	var gem = gem_scene.instantiate()
 	gem.position = global_position
 	get_node("/root/game/Loot").add_child(gem)

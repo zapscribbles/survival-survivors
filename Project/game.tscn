@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctjysvi2h38yr"]
+[gd_scene load_steps=16 format=3 uid="uid://ctjysvi2h38yr"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_4n46m"]
 [ext_resource type="PackedScene" uid="uid://bfek3nihtrk3y" path="res://player.tscn" id="2_0h0l0"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://1p5dyo70c46i" path="res://assets/bg/Space Background (11).png" id="10_18ilc"]
 [ext_resource type="PackedScene" uid="uid://c7winxbeswov1" path="res://xp_gem.tscn" id="12_5donn"]
 [ext_resource type="Texture2D" uid="uid://brhda4dg3nxm7" path="res://assets/bg/Space Background (7).png" id="12_jkq7e"]
+[ext_resource type="Script" path="res://hud.gd" id="13_dufs5"]
+[ext_resource type="Theme" uid="uid://de8fcdiatapkp" path="res://main_theme.tres" id="14_a8l3f"]
 [ext_resource type="Texture2D" uid="uid://cdojeo5qdokjc" path="res://assets/bg/Space Background (13).png" id="14_dbfyg"]
 [ext_resource type="Texture2D" uid="uid://djufrtl5vhnu2" path="res://assets/bg/Space Background (15).png" id="16_w305a"]
 
@@ -31,12 +33,79 @@ unique_name_in_owner = true
 [node name="Camera2D" type="Camera2D" parent="Player"]
 editor_draw_screen = false
 
+[node name="HUD" type="PanelContainer" parent="Player/Camera2D"]
+unique_name_in_owner = true
+offset_left = -1200.0
+offset_top = -669.0
+offset_right = 1200.0
+offset_bottom = -375.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("13_dufs5")
+
+[node name="MarginContainer" type="MarginContainer" parent="Player/Camera2D/HUD"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="Player/Camera2D/HUD/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("14_a8l3f")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Player/Camera2D/HUD/MarginContainer/Panel"]
+layout_mode = 2
+offset_right = 196.0
+offset_bottom = 128.0
+
+[node name="XP" type="HBoxContainer" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="MarginContainer" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer/XP"]
+layout_mode = 2
+theme = ExtResource("14_a8l3f")
+
+[node name="Label" type="Label" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer/XP/Label"]
+layout_mode = 2
+text = "XP:"
+
+[node name="Data" type="MarginContainer" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer/XP"]
+layout_mode = 2
+theme = ExtResource("14_a8l3f")
+
+[node name="XP" type="Label" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer/XP/Data"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "999999"
+
+[node name="HP" type="HBoxContainer" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="MarginContainer" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer/HP"]
+layout_mode = 2
+theme = ExtResource("14_a8l3f")
+
+[node name="Label" type="Label" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer/HP/Label"]
+layout_mode = 2
+text = "HP:"
+
+[node name="Data" type="MarginContainer" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer/HP"]
+layout_mode = 2
+theme = ExtResource("14_a8l3f")
+
+[node name="HP" type="Label" parent="Player/Camera2D/HUD/MarginContainer/Panel/HBoxContainer/HP/Data"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "999999"
+
 [node name="SpawnRect" type="Polygon2D" parent="."]
 visible = false
 color = Color(1, 0, 0, 0.172549)
 polygon = PackedVector2Array(-65, -65, 1217, -65, 1217, 713, -65, 713)
 
 [node name="SpawnTimer" type="Timer" parent="SpawnRect"]
+autostart = true
 
 [node name="Enemies" type="Node2D" parent="."]
 

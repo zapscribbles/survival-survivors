@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7winxbeswov1"]
+[gd_scene load_steps=15 format=3 uid="uid://c7winxbeswov1"]
 
 [ext_resource type="Texture2D" uid="uid://c3e4i4cmi82uh" path="res://assets/sprites/station_A.png" id="1_5uetk"]
 [ext_resource type="Script" path="res://xp_gem.gd" id="1_wy8fb"]
+[ext_resource type="Texture2D" uid="uid://dw4i280rw7y0" path="res://assets/effects/particles/star_01.png" id="3_oqt2h"]
 [ext_resource type="Script" path="res://xp_gem-area_2d.gd" id="3_txq3g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5khkx"]
@@ -36,7 +37,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/path = NodePath("Sprite:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -56,6 +57,72 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 19.3917)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollectEffect:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_myyc6"]
+resource_name = "collect"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollectEffect:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_i3xot"]
@@ -90,7 +157,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/path = NodePath("Sprite:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -132,7 +199,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/path = NodePath("Sprite:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -145,12 +212,33 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_shhrq"]
 _data = {
 "RESET": SubResource("Animation_u5jjc"),
+"collect": SubResource("Animation_myyc6"),
 "idle": SubResource("Animation_i3xot"),
 "in_transit": SubResource("Animation_o014l")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k5fjq"]
 radius = 14.0357
+
+[sub_resource type="Curve" id="Curve_vl765"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.775773, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1k2jk"]
+curve = SubResource("Curve_vl765")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e6ojg"]
+lifetime_randomness = 0.55
+particle_flag_disable_z = true
+radial_velocity_min = 9.99998
+radial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.03
+scale_max = 0.05
+color = Color(0, 0.780392, 1, 1)
+alpha_curve = SubResource("CurveTexture_1k2jk")
+hue_variation_min = -0.05
+hue_variation_max = 0.05
 
 [node name="XPGem" type="CharacterBody2D"]
 position = Vector2(795, 343)
@@ -163,8 +251,7 @@ visible = false
 shape = SubResource("CircleShape2D_5khkx")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-modulate = Color(0, 0.0117647, 0.658824, 1)
-self_modulate = Color(0, 0.222835, 0.752513, 1)
+self_modulate = Color(0, 0.0117647, 0.658824, 1)
 position = Vector2(0, 19.3917)
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("1_5uetk")
@@ -186,3 +273,14 @@ script = ExtResource("3_txq3g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_k5fjq")
+
+[node name="CollectEffect" type="GPUParticles2D" parent="."]
+position = Vector2(0, 19.3917)
+scale = Vector2(0.12, 0.12)
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_e6ojg")
+texture = ExtResource("3_oqt2h")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0

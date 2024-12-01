@@ -3,8 +3,19 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 
-var hp = 50
-var xp = 0
+var hp : int :
+	set(new_hp):
+		hp = new_hp
+		%HUD.update("hp", new_hp)
+
+var xp : int :
+	set(new_xp):
+		xp = new_xp
+		%HUD.update("xp", new_xp)
+
+func _ready():
+	hp = 50
+	xp = 0
 
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
@@ -32,7 +43,8 @@ func _on_collection_area_area_entered(area):
 
 
 func _on_collection_area_area_exited(area):
-	print("player collection area exited by " + area.type())
+	pass
+	#print("player collection area exited by " + area.type())
 
 
 func _on_pickup_area_area_entered(area):

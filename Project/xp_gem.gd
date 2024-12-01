@@ -30,4 +30,5 @@ func entered_collection_area():
 	$AnimationPlayer.play("in_transit")
 
 func entered_pickup_area():
-	queue_free()
+	state = GEM_STATE.COLLECTED
+	$AnimationPlayer.play("collect")
